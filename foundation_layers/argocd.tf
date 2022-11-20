@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   ]
 
   values = [
-    file("foundation_layers/foundationlayer_values/argocd/argocd-values.yaml")
+    file("git::https://github.com/danielarockia/qa2-modules.git//foundation_layers/foundationlayer_values/argocd/argocd-values.yaml")
   ]
 
 }
