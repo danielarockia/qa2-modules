@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   ]
 
   values = [
-    file("D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\foundationlayer\\argocd\\argocd-values.yaml")
+    file(".\foundationlayer_values\argocd\argocd-values.yaml")
   ]
 
 }
