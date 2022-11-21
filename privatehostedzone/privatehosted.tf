@@ -7,16 +7,16 @@ resource "aws_route53_zone" "private" {
 }
 
 resource "aws_route53_record" "private_record" {
-  zone_id = aws_route53_zone.private.zone_id
+  zone_id  = aws_route53_zone.private.zone_id
   for_each = toset(var.records)
-  name    = "${each.value}"
-  type    = "CNAME"
-  ttl     = "300"
+  name     = each.value
+  type     = "CNAME"
+  ttl      = "300"
   records = [
-        "${data.aws_lb.istiolb.dns_name}"
-      ]
+    "${data.aws_lb.istiolb.dns_name}"
+  ]
 }
 
 output "name_server" {
-    value = aws_route53_zone.private.name_servers
+  value = aws_route53_zone.private.name_servers
 }

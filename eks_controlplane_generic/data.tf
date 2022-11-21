@@ -1,5 +1,5 @@
 data "aws_iam_role" "controlplane" {
-  name = "${var.controlplane_iam_role}"
+  name = var.controlplane_iam_role
 }
 
 

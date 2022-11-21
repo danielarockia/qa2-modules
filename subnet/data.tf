@@ -1,8 +1,10 @@
+data "aws_availability_zones" "azs" {}
+
 data "aws_vpc" "defaultvpc" {
 
   default = true
 }
-
+  
 data "aws_internet_gateway" "internatgateway" {
   filter {
     name   = "attachment.vpc-id"
@@ -10,9 +12,3 @@ data "aws_internet_gateway" "internatgateway" {
   }
 }
 
-data "aws_lb" "istiolb" {
-  tags = {
-    "kubernetes.io/service-name"                = "istio-ingress/istio-ingress"
-    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-  }
-}

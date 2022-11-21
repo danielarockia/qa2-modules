@@ -1,7 +1,7 @@
 variable "domain" {}
 
 variable "records" {
-    type = list
+  type = list(any)
 }
 
 variable "cluster_name" {

@@ -12,16 +12,16 @@ variable "ami" {}
 variable "keyname" {}
 
 variable "min_instance_count" {
-type = number
+  type = number
 }
 
 variable "max_instance_count" {
-type = number
+  type = number
 }
 
 variable "desired_instance_count" {
-type = number
-default = null
+  type    = number
+  default = null
 }
 
 variable "env" {}
@@ -47,6 +47,6 @@ variable "kubelet_args" {
 }
 
 variable "root_volume_type" {
-  type = string
+  type    = string
   default = "gp3"
 }

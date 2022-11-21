@@ -14,42 +14,42 @@ resource "aws_iam_role" "eks_workernode_role" {
 }
 
 resource "aws_iam_policy" "eks-clusterautoscaler" {
-  name  = "${var.env}_ClusterAutoscaler"
-  
+  name = "${var.env}_ClusterAutoscaler"
+
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeTags",
-                "autoscaling:DescribeTags",
-                "autoscaling:*"
-            ],
-            "Resource": "*"
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+          "ec2:DescribeTags",
+          "autoscaling:DescribeTags",
+          "autoscaling:*"
+        ],
+        "Resource" : "*"
       },
     ]
   })
 }
 
 resource "aws_iam_policy" "eks-External-DNS" {
-  name  = "${var.env}_External_DNS"
-  
+  name = "${var.env}_External_DNS"
+
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "route53:ListHostedZones",
-                "route53:ListResourceRecordSets",
-                "route53:ChangeResourceRecordSets"
-            ],
-            "Resource": "*"
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+          "route53:ListHostedZones",
+          "route53:ListResourceRecordSets",
+          "route53:ChangeResourceRecordSets"
+        ],
+        "Resource" : "*"
       },
     ]
   })
@@ -86,6 +86,6 @@ resource "aws_iam_role_policy_attachment" "eks-External-DNS" {
 }
 
 resource "aws_iam_instance_profile" "profile" {
-  name = "${aws_iam_role.eks_workernode_role.name}"
-  role = "${aws_iam_role.eks_workernode_role.name}"
+  name = aws_iam_role.eks_workernode_role.name
+  role = aws_iam_role.eks_workernode_role.name
 }

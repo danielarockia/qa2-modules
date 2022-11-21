@@ -19,3 +19,4 @@ variable "version_metrics-server" {}
 variable "version_istio_istiod" {}
 variable "version_istio_base" {}
 variable "version_istio_ingress" {}
+variable "version_external_dns" {}

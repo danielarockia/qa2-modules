@@ -1,7 +1,7 @@
 variable "env" {
-    description = "this will be added in role name"
-    type = string
-  
+  description = "this will be added in role name"
+  type        = string
+
 }
 
 variable "region" {}

@@ -16,17 +16,17 @@ USERDATA
 resource "aws_launch_configuration" "worker" {
   enable_monitoring           = false
   associate_public_ip_address = false
-  iam_instance_profile        = "${data.aws_iam_instance_profile.worker.name}"
-  image_id                    = "${var.ami}"
-  instance_type               = "${var.instance_type}"
+  iam_instance_profile        = data.aws_iam_instance_profile.worker.name
+  image_id                    = var.ami
+  instance_type               = var.instance_type
   name_prefix                 = "${var.cluster_name}-${var.asg_prefix}-worker"
   security_groups             = ["${data.aws_security_group.worker.id}"]
-  user_data_base64            = "${base64encode(local.worker_userdata)}"
-  key_name                    = "${var.keyname}"
+  user_data_base64            = base64encode(local.worker_userdata)
+  key_name                    = var.keyname
 
   root_block_device {
-    volume_type = "${var.root_volume_type}"
-    volume_size = "${var.root_volume_size}"
+    volume_type = var.root_volume_type
+    volume_size = var.root_volume_size
   }
 
   lifecycle {
@@ -36,13 +36,13 @@ resource "aws_launch_configuration" "worker" {
 
 resource "aws_autoscaling_group" "worker" {
   count                   = length(flatten(["${var.worker_subnets}"]))
-  desired_capacity        = "${var.desired_instance_count}"
-  launch_configuration    = "${aws_launch_configuration.worker.id}"
-  max_size                = "${var.max_instance_count}"
-  min_size                = "${var.min_instance_count}"
+  desired_capacity        = var.desired_instance_count
+  launch_configuration    = aws_launch_configuration.worker.id
+  max_size                = var.max_instance_count
+  min_size                = var.min_instance_count
   name                    = "${var.cluster_name}-${var.asg_prefix}-worker-${count.index}"
   vpc_zone_identifier     = [flatten(["${var.worker_subnets}"])[count.index]]
-  service_linked_role_arn = "${data.aws_iam_role.worker_asg.arn}"
+  service_linked_role_arn = data.aws_iam_role.worker_asg.arn
   termination_policies    = ["${var.term_policy}"]
 
   tag {
@@ -78,16 +78,16 @@ resource "aws_autoscaling_group" "worker" {
 
   tag {
     key                 = "APPLICATIONENV"
-    value               = "${upper(var.env)}"
+    value               = upper(var.env)
     propagate_at_launch = true
   }
 
   tag {
     key                 = "SERVICENAME"
-    value               = "${upper(var.servicename)}"
+    value               = upper(var.servicename)
     propagate_at_launch = true
   }
-  
+
   tag {
     key                 = "k8s.io/cluster-autoscaler/${var.cluster_name}"
     value               = "owned"
