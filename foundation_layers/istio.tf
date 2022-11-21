@@ -4,7 +4,7 @@ resource "helm_release" "istio-base" {
   name             = "istio-base"
   namespace        = "istio-system"
   version          =  var.version_istio_base
-  values = [ file("D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\istiovalues\\base-values.yaml" )]
+  values = [ file("./istiovalues/base-values.yaml" )]
   #version          = "1.12.1"
   #create_namespace = true
   depends_on = [
@@ -20,7 +20,7 @@ resource "helm_release" "istiod" {
   version          =  var.version_istio_istiod
   #create_namespace = true
   #version          = "1.12.1"
-  values = [ file("D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\istiovalues\\istiod-values.yaml") ]
+  values = [ file("./istiovalues/istiod-values.yaml") ]
   depends_on       = [helm_release.istio-base,kubernetes_namespace.system_namespace]
 }
 
@@ -41,6 +41,6 @@ resource "helm_release" "istio-ingress" {
   namespace  = "istio-ingress"
   #version    =  var.version_istio_ingress
   #version    = "1.12.1"
-  values = [ file( "D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\istiovalues\\istiogateway-values.yaml" )]
+  values = [ file( "./istiovalues/istiogateway-values.yaml" )]
   depends_on = [helm_release.istiod,kubernetes_namespace.system_namespace]
 }
