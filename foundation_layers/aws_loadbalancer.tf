@@ -8,7 +8,7 @@ resource "helm_release" "aws-load-balancer-controller" {
     kubernetes_namespace.system_namespace
   ]
   values = [
-    file("D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\foundationlayer\\aws-loadbalancer-controller\\aws-loadbalancer-controller-values.yaml")
+    file("./foundationlayer_values/aws-loadbalancer-controller/aws-loadbalancer-controller-values.yaml")
   ]
 
 }
