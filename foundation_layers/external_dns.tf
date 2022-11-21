@@ -9,7 +9,7 @@ resource "helm_release" "external_dns" {
   ]
 
   values = [
-    file("D:\\AWS-TF\\tf-helm-singsub-oidc\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\foundationlayer\\external-dns\\externaldns-values.yaml")
+    file("./foundationlayer_values/external-dns/externaldns-values.yaml")
   ]
 
 }
