@@ -6,7 +6,7 @@ resource "helm_release" "metrics" {
 
 
   values = [
-    file("D:\\AWS-TF\\tf-single-subnet\\infra-terraform-environments\\env\\dev\\dev\\ap-south-1\\eks\\eks_controlplane\\foundationlayer\\metric-server\\metrics-server-values.yaml")
+    file("./foundationlayer_values/metric-server/metrics-server-values.yaml")
   ]
 
 }
